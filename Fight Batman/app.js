@@ -7,11 +7,15 @@ const app = Vue.createApp({
         return{
         batmanHealth: 100,
         playerHealth: 100,
-        };
+        currentRound: 0    
+    };
+
+
+
     },
     methods:{
         attackBatman(){
-
+            this.currentRound++;
             const damage = randomDamage();
             this.batmanHealth -= damage;
             this.attackPlayer();
@@ -24,8 +28,15 @@ const app = Vue.createApp({
             
 
         },
-        healPlayer(){
+        specialAttack(){
+            this.currentRound++;
+            const damage = randomDamage();
+            this.batmanHealth -= damage;
 
+        },
+
+        healPlayer(){
+            this.currentRound++;
             const heal = Math.floor(Math.random() * 40)
             this.playerHealth + heal > 100 ? this.playerHealth = 100
             : this.playerHealth += heal;
@@ -45,6 +56,14 @@ const app = Vue.createApp({
                 width: this.playerHealth + '%'}
 
             },
+
+        useSpecialAttack(){
+
+            return this.currentRound  % 3 !== 0;
+
+            
+
+        }
         
 
         }    
